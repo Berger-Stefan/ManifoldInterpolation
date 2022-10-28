@@ -1,10 +1,17 @@
 using Documenter
 using ManifoldInterpolation
 
+PAGES = [
+            "Home" => "index.md",
+            "Documentation" => ["Interpolation.md", "GraphLaplacian.md"],
+        ]
+
+
 makedocs(
     sitename = "ManifoldInterpolation",
     format = Documenter.HTML(),
-    modules = [ManifoldInterpolation]
+    modules = [ManifoldInterpolation],
+    pages = PAGES
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.

@@ -5,13 +5,13 @@ This modules allows the user to interpolate eigenvectors on the Grassmann manifo
 """
 module ManifoldInterpolation
 
-using PyCall
+# using PyCall
 using Graphs, SimpleWeightedGraphs
 # using WriteVTK
 # using VTKDataTypes, VTKDataIO
 using LinearAlgebra
 # TODO fix plots
-# using Plots
+using Plots
 using SparseArrays
 using LaTeXStrings
 
@@ -20,7 +20,7 @@ using Interpolations
 import Interpolations.interpolate
 
 
-# include("interpolationToolbox.jl")
+include("interpolationToolbox.jl")
 include("graphLaplacianToolbox.jl")
 
 export CustomGraph

@@ -18,6 +18,11 @@ mutable struct CustomGraph
 	end
 end
 
+"""
+	loadMesh(graph::CustomGraph)
+
+	Test
+"""
 function loadMesh(graph::CustomGraph)
 	graph.mesh = read_vtk(graph.pathMesh)
 	graph.points = [graph.mesh.point_coords[:,i] for i in 1:size(graph.mesh.point_coords,2)]
