@@ -11,7 +11,7 @@ makedocs(
     sitename = "ManifoldInterpolation",
     format = Documenter.HTML(),
     modules = [ManifoldInterpolation],
-    pages = PAGES
+    # pages = PAGES
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.
