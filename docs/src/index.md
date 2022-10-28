@@ -2,6 +2,6 @@
 
 Documentation for ManifoldInterpolation.jl
 
-```@docs
-test()
+```@autodocs
+Modules = [ManifoldInterpolation]
 ```
