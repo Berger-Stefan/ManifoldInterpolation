@@ -30,4 +30,10 @@ export computeEigenGraph
 export saveResults
 export distanceEigenfunctions
 
+export interpolate_complete
+export plot_interpolation_error
+export exp_log_error
+export plot_crossing
+
+
 end # module

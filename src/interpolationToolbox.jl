@@ -41,9 +41,9 @@ function interpolate(interpolator::SafeInterpolator, index, tol::Float64=0.5)
     return optimal_interpolation
 end
 
-function interpolate(interpolator::Union{Interpolations.ScaledInterpolation, Interpolations.Extrapolation, Interpolations.BSpline}, index)
-    return interpolator(index)
-end
+# function interpolate(interpolator::Union{Interpolations.ScaledInterpolation, Interpolations.Extrapolation, Interpolations.BSpline}, index)
+#     return interpolator(index)
+# end
 
 """
     interpolate_complete( itp_sample_points, itp_sample_points_parameter, itp_parameter_points, origin, n_dim)
