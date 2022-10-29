@@ -14,6 +14,7 @@ using SparseArrays
 using LaTeXStrings
 using Interpolations
 using Arpack
+using Manifolds
 import Interpolations.interpolate
 
 include("interpolationToolbox.jl")
