@@ -1,10 +1,17 @@
 
+"""
+    SafeInterpolator
 
+
+"""
 mutable struct SafeInterpolator
     itp::Union{Interpolations.ScaledInterpolation}
     itp_safety::Union{Interpolations.ScaledInterpolation}
 end
 
+"""
+
+"""
 function interpolate(interpolator::SafeInterpolator, index, tol::Float64=0.5)
     default_interpolation = exp(Gr, origin, interpolator.itp(index))
     # find the interpolation points
@@ -38,7 +45,11 @@ function interpolate(interpolator::Union{Interpolations.ScaledInterpolation, Int
     return interpolator(index)
 end
 
+"""
+    interpolate_complete( itp_sample_points, itp_sample_points_parameter, itp_parameter_points, origin, n_dim)
 
+    This function interpolates between the given sample points. For this it uses the Grassmann manifold and the tangentspace. The sample points correspond to the parameter value where the sample point was sampled. The parameter points are the points where you want new interpolation values. The origin is the point on the Grassmann manifold where the tangentspace is constructed. The number of eigenvectors to interpolate is set by n_dim.
+"""
 function interpolate_complete( itp_sample_points, itp_sample_points_parameter, itp_parameter_points, origin, n_dim)
     Gr =  Grassmann(size(itp_sample_points)[1], n_dim)
     # 1. project manifold points onto the tangentspace
@@ -56,6 +67,11 @@ function interpolate_complete( itp_sample_points, itp_sample_points_parameter, i
     return interpolated_solution
 end
 
+"""
+    plot_error_interpolation = scatter(title=title, xlabel="Parameter", ylabel="Error",size=(1000,300) ,margin=5Plots.mm)
+
+    This function allows for a quick plot of the interpolation error.
+"""
 function plot_interpolation_error(itp_values, true_values, parameter_points, itp_sample_parameter_point, Gr, title="")
     plot_error_interpolation = scatter(title=title, xlabel="Parameter", ylabel="Error",size=(1000,300) ,margin=5Plots.mm)
     for (index,value) in enumerate(itp_values)
@@ -74,6 +90,11 @@ function plot_interpolation_error(itp_values, true_values, parameter_points, itp
     return plot_error_interpolation
 end
 
+"""
+    exp_log_error(points, parameter_points, origin, Gr )
+
+    This function checks the accuracy of the exp and log maps. This is done by applying first the log map to project a point from the manifold to the tangentspace space. After that this point is retracted back to the manifold. The distance between the new point and the starting point give an indication on how precise the log and exp maps are.
+"""
 function exp_log_error(points, parameter_points, origin, Gr )
 
     plot_error = scatter(size=(1000,300))   
@@ -85,6 +106,11 @@ function exp_log_error(points, parameter_points, origin, Gr )
     return plot_error
 end
 
+"""
+    plot_crossing(graphs, n_eigenfunctions, n_safety, itp_values, true_values, parameter_points, itp_sample_parameter_point, Gr)
+
+    This function allows to quickly plot eigenvalue crossings.
+"""
 function plot_crossing(graphs, n_eigenfunctions, n_safety, itp_values, true_values, parameter_points, itp_sample_parameter_point, Gr)
     Σ = map(i -> hcat(Array(i.Σ)), graphs) |> x -> reduce(hcat,x) 
     plot_crossing = plot(title="$n_eigenfunctions + $n_safety Eigenvalues",xlabel="Stretch Parameter")
@@ -102,6 +128,9 @@ end
 
 
 # Custom Interpolator is used for FLUX models since the Interpolations.jl is not supported
+"""
+
+"""
 struct CustomInterpolator
     x::Vector
     y::Vector
@@ -182,6 +211,10 @@ end
 # end
 
 # version using Interpolations.jl
+
+"""
+
+"""
 function initialize(adaptiveInterpolator::AdaptiveInterpolator)
     U = adaptiveInterpolator.U
     Gr = Grassmann(size(U[1])[1], size(U[1])[2])
@@ -212,6 +245,10 @@ function initialize(adaptiveInterpolator::AdaptiveInterpolator)
     adaptiveInterpolator.interpolator = interpolator
 end
 
+
+"""
+
+"""
 function interpolate_tangentspace(adaptiveInterpolator::AdaptiveInterpolator, parameter::Number)
     U = adaptiveInterpolator.U
     Gr = Grassmann(size(U[1])[1], size(U[1])[2])
@@ -221,6 +258,10 @@ function interpolate_tangentspace(adaptiveInterpolator::AdaptiveInterpolator, pa
 
 end
 
+
+"""
+
+"""
 function interpolate(adaptiveInterpolator::AdaptiveInterpolator, parameter::Number)
     U = adaptiveInterpolator.U
     Gr = Grassmann(size(U[1])[1], size(U[1])[2])
@@ -240,6 +281,10 @@ function interpolate(adaptiveInterpolator::AdaptiveInterpolator, parameter::Numb
 
 end
 
+
+"""
+
+"""
 function lagrange_basis(interpolation_param, t, j)
     n = size(interpolation_param)[1]
     val = 1

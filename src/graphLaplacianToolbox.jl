@@ -1,3 +1,9 @@
+
+"""
+	CustomGraph
+
+	This custom datatype allows to save a mesh and the corresponding graph, as well as Metadata of the mesh. The default constructor takes a string to the location of the mesh in a VTK format.
+"""
 mutable struct CustomGraph
 	# attributes
 	pathMesh::String
@@ -21,18 +27,28 @@ end
 """
 	loadMesh(graph::CustomGraph)
 
-	Test
+	This function reads the mesh.
 """
 function loadMesh(graph::CustomGraph)
 	graph.mesh = read_vtk(graph.pathMesh)
 	graph.points = [graph.mesh.point_coords[:,i] for i in 1:size(graph.mesh.point_coords,2)]
 end
 
+"""
+	transformMesh(graph::CustomGraph, transformationOperator::Function,functionArg)
+
+	This functions applies a transformationOperator to the coordinates of the graph.
+"""
 function transformMesh(graph::CustomGraph, transformationOperator::Function,functionArg)
 	graph.points = transformationOperator.(graph.points,functionArg ...)
 	graph.mesh.point_coords = hcat(graph.points...)	
 end
 
+"""
+	createLaplacian(graph::CustomGraph)
+
+	This function creates a graph as well as the corresponding Laplace matrix.
+"""
 function createLaplacian(graph::CustomGraph)
 	# Points
 	graph.points = [graph.mesh.point_coords[:,i] for i in 1:size(graph.mesh.point_coords,2)]	# write point coord from mesh to graph
@@ -60,6 +76,11 @@ end
 # 	graph.Σ = eigobj.values[1:N]
 # end
 
+"""
+	computeEigenGraph(graph::CustomGraph,N::Int )
+
+	This function computes the smallest N eigenvalues and eigenfunctions.
+"""
 function computeEigenGraph(graph::CustomGraph,N::Int )
 	# Diagonalization
 	graph.N = N
@@ -69,6 +90,11 @@ function computeEigenGraph(graph::CustomGraph,N::Int )
 end
 
 
+"""
+	computeEigenGraph(graph::CustomGraph)
+
+	This function computes the smallest N eigenvalues and eigenfunctions.
+"""
 function computeEigenGraph(graph::CustomGraph)
 	# Diagonalization
 	eigobj = eigen(Array(graph.A))
@@ -76,7 +102,11 @@ function computeEigenGraph(graph::CustomGraph)
 	graph.Σ = eigobj.values
 end
 
+"""
+	saveResults(graph::CustomGraph, outputPath::String="result")
 
+	This function exports the first N smallest eigenvalues as well as the corresponding eigenvectors as a vtu file.
+"""
 function saveResults(graph::CustomGraph, outputPath::String="result")
 	# Write Output VTK
 	for i=1:size(graph.U)[2]
@@ -87,6 +117,11 @@ function saveResults(graph::CustomGraph, outputPath::String="result")
 	end
 end
 
+"""
+	distanceEigenfunctions(graph1::CustomGraph, graph2::CustomGraph, n::Number=50)
+	
+	This functions distance between two graphs in 3 norms.
+"""
 function distanceEigenfunctions(graph1::CustomGraph, graph2::CustomGraph, n::Number=50)
 	norm_inf =  norm(graph1.U[:,n] - graph2.U[:,n], 1)
 	norm_fro = norm(graph1.U[:,n] - graph2.U[:,n], 2)

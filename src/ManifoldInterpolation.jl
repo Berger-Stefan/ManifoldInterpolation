@@ -7,7 +7,6 @@ module ManifoldInterpolation
 
 using PyCall
 using Graphs, SimpleWeightedGraphs
-# using WriteVTK
 using  VTKDataIO
 using LinearAlgebra
 # TODO fix plots
