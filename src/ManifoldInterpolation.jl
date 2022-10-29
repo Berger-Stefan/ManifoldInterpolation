@@ -1,23 +1,23 @@
 """
 
-This modules allows the user to interpolate eigenvectors on the Grassmann manifold. Additionaly, functions for the application of the Laplace operator on graphs is implemeted. 
+This modules allows the user to interpolate eigenvectors on the Grassmann manifold. Additionally, functions for the application of the Laplace operator on graphs is implemented. 
 
 """
 module ManifoldInterpolation
 
-# using PyCall
-# using Graphs, SimpleWeightedGraphs
-# using WriteVTK
-# using VTKDataTypes, VTKDataIO
-# using LinearAlgebra
-# # TODO fix plots
-# using Plots
-# using SparseArrays
-# using LaTeXStrings
+using PyCall
+using Graphs, SimpleWeightedGraphs
+using WriteVTK
+using VTKDataTypes, VTKDataIO
+using LinearAlgebra
+# TODO fix plots
+using Plots
+using SparseArrays
+using LaTeXStrings
 
 
-# using Interpolations
-# import Interpolations.interpolate
+using Interpolations
+import Interpolations.interpolate
 
 
 include("interpolationToolbox.jl")
