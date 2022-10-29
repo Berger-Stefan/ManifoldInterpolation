@@ -7,17 +7,14 @@ module ManifoldInterpolation
 
 using PyCall
 using Graphs, SimpleWeightedGraphs
-using  VTKDataIO
+using VTKDataIO
 using LinearAlgebra
-# TODO fix plots
 using Plots
 using SparseArrays
 using LaTeXStrings
-
-
 using Interpolations
+using Arpack
 import Interpolations.interpolate
-
 
 include("interpolationToolbox.jl")
 include("graphLaplacianToolbox.jl")
