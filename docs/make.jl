@@ -9,7 +9,7 @@ PAGES = [
 
 makedocs(
     sitename = "ManifoldInterpolation",
-    format = Documenter.HTML(prettyurls = false ),
+    format = Documenter.HTML(),
     modules = [ManifoldInterpolation],
     # pages = PAGES
 )
